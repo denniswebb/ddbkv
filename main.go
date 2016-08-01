@@ -23,17 +23,21 @@ type Record struct {
 func main() {
 	flag.StringVar(&table, "table", "", "DynamoDB table name.")
 	flag.StringVar(&key, "key", "", "Key")
-	flag.StringVar(&value, "value", "", "Value")
+	//flag.StringVar(&value, "value", "", "Value")
 	flag.Parse()
 
+	if len(flag.Args()) > 0{
+		value = strings.TrimPrefix(flag.Arg(0)," ")
+	}
+
 	flag.Usage = func() {
-		fmt.Printf("Usage: ddbkv -table <table> -key <key> -value <value>\n\n")
+		fmt.Printf("Usage: ddbkv -table <table> -key <key> <value>\n\n")
 		flag.PrintDefaults()
 	}
 
 	if strings.Trim(table, " ") == "" { log.Fatal("Error: table must be set.") }
 	if strings.Trim(key, " ") == "" { log.Fatal("Error: key must be set.") }
-	
+
 	r := Record{Env: key, Value: value}
 
 	ddb := dynamodb.New(session.New())
