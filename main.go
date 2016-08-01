@@ -33,8 +33,7 @@ func main() {
 
 	if strings.Trim(table, " ") == "" { log.Fatal("Error: table must be set.") }
 	if strings.Trim(key, " ") == "" { log.Fatal("Error: key must be set.") }
-	if strings.Trim(value, " ") == "" { log.Fatal("Error: value must be set.") }
-
+	
 	r := Record{Env: key, Value: value}
 
 	ddb := dynamodb.New(session.New())
