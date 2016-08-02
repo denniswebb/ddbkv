@@ -28,6 +28,8 @@ func main() {
 
 	if len(flag.Args()) > 0{
 		value = strings.TrimPrefix(flag.Arg(0)," ")
+	}else{
+		value = " "
 	}
 
 	flag.Usage = func() {
